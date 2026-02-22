@@ -3,7 +3,6 @@
 ## 📝 Challenge Description
 
 * **Category:** Web
-* **Sub-category:** Web2
 * **Difficulty:** Hard: 2
 * **Objective:** Reverse a custom PHP encryption algorithm to retrieve the flag from the provided encoded string `$miwen`.
 
