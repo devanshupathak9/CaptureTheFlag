@@ -6,5 +6,5 @@ My write-ups for the PatriotCTF 2025 event.
 
 | Challenge | Write-up | Notes |
 | --- | --- | --- |
-| Are You Pylingual | [README](./rev/are-you-pylingual/README.md) | Decompiling `.pyc` bytecode and reversing the transform |
-| Space Pirates | [README](./rev/space-pirates/README.md) | Undoing a chain of reversible byte transforms in C |
+| Are You Pylingual | [writeup](./rev_are-you-pylingual/writeup.md) | Decompiling `.pyc` bytecode and reversing the transform |
+| Space Pirates | [writeup](./rev_space-pirates/writeup.md) | Undoing a chain of reversible byte transforms in C |

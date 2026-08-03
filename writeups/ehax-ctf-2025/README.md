@@ -6,4 +6,4 @@ My write-ups for the EHAX CTF 2025 event.
 
 | Challenge | Difficulty | Write-up |
 | --- | --- | --- |
-| Borderline Personality | Easy | [README](./web/borderline-personality/README.md) |
+| Borderline Personality | Easy | [writeup](./web_borderline-personality/writeup.md) |

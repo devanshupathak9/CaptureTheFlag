@@ -1,6 +1,6 @@
 # Challenge Write-up — **pyjail** (Infobahn CTF, difficulty: Easy)
 
-**Path:** `writeups/infobahn-ctf-2025/misc/pyjail`
+**Path:** `writeups/infobahn-ctf-2025/misc_pyjail`
 
 ## Summary / Problem statement
 

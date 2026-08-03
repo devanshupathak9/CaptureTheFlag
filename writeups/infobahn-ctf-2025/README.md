@@ -9,5 +9,5 @@ For the original challenge list, see <https://2025.infobahnc.tf/challenges>.
 
 | Challenge | Difficulty | Write-up |
 | --- | --- | --- |
-| pyjail | Easy | [README](./misc/pyjail/README.md) |
-| SPEECHLESS | Medium | [README](./misc/speechless/README.md) |
+| pyjail | Easy | [writeup](./misc_pyjail/writeup.md) |
+| SPEECHLESS | Medium | [writeup](./misc_speechless/writeup.md) |

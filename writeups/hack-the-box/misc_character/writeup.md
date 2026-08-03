@@ -1,6 +1,6 @@
 # Challenge Write-up — **Character** (950 pts, Very Easy)
 
-**Path:** `writeups/hack-the-box/misc/character`
+**Path:** `writeups/hack-the-box/misc_character`
 ---
 
 ## Summary / Problem statement

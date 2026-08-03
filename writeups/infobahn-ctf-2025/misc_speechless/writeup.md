@@ -1,6 +1,6 @@
 # Challenge Write-up — **SPEECHLESS**
 
-**Path:** `writeups/infobahn-ctf-2025/misc/speechless`
+**Path:** `writeups/infobahn-ctf-2025/misc_speechless`
 **Difficulty:** Medium (restricted eval + side-channel by exceptions)
 
 ---
