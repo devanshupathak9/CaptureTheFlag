@@ -1,6 +1,6 @@
-# Easy Upload
+# Regularity
 
-**Category:** Web
-**Path:** `practice/adworld/web_easy-upload`
+**Category:** Pwn
+**Path:** `practice/hack-the-box/pwn_regularity`
 
 > 🚧 Write-up pending — the challenge files live in this folder; a full write-up has not been written yet.
