@@ -7,11 +7,15 @@ Welcome to my Capture The Flag (CTF) repository! This repository contains my wri
 ## 📂 Repository Layout
 
 ```
-├── writeups/     # All solved challenges, grouped by source → challenge
+├── practice/     # Standalone challenges from practice platforms (HTB, AdWorld, …)
+├── writeups/     # Write-ups from time-boxed CTF competitions/events
 ├── handbook/     # Reusable notes, theory and cheat sheets
 ├── templates/    # Write-up template used for new challenges
 └── tools/        # Helper scripts reused across challenges
 ```
+
+**`practice/`** holds challenges I solved on always-on platforms, grouped by platform.
+**`writeups/`** holds challenges from specific competitions, grouped by event.
 
 Each challenge folder is named `<category>_<challenge>` so you can see the category
 at a glance without opening it, and follows the same internal layout:
@@ -29,17 +33,24 @@ Only the parts a challenge actually needs are present.
 
 ---
 
-## 🗂️ Write-ups
+## 🎯 Practice Challenges — [full index](./practice/README.md)
 
-| Source | Type | Index |
-| --- | --- | --- |
-| Hack The Box | Platform | [writeups/hack-the-box](./writeups/hack-the-box/README.md) |
-| AdWorld (XCTF) | Platform | [writeups/adworld](./writeups/adworld/README.md) |
-| EHAX CTF 2025 | Event | [writeups/ehax-ctf-2025](./writeups/ehax-ctf-2025/README.md) |
-| Infobahn CTF 2025 | Event | [writeups/infobahn-ctf-2025](./writeups/infobahn-ctf-2025/README.md) |
-| PatriotCTF 2025 | Event | [writeups/patriot-ctf-2025](./writeups/patriot-ctf-2025/README.md) |
+Standalone challenges from always-on practice platforms.
 
-See [writeups/README.md](./writeups/README.md) for the complete challenge index.
+| Platform | Index |
+| --- | --- |
+| Hack The Box | [practice/hack-the-box](./practice/hack-the-box/README.md) |
+| AdWorld (XCTF) | [practice/adworld](./practice/adworld/README.md) |
+
+## 🏁 Event Write-ups — [full index](./writeups/README.md)
+
+Challenges from time-boxed CTF competitions.
+
+| Event | Index |
+| --- | --- |
+| EHAX CTF 2025 | [writeups/ehax-ctf-2025](./writeups/ehax-ctf-2025/README.md) |
+| Infobahn CTF 2025 | [writeups/infobahn-ctf-2025](./writeups/infobahn-ctf-2025/README.md) |
+| PatriotCTF 2025 | [writeups/patriot-ctf-2025](./writeups/patriot-ctf-2025/README.md) |
 
 ---
 
