@@ -1,7 +1,5 @@
 # 🧩 CTF Writeup: [Challenge Name]
 
----
-
 ## ℹ️ Challenge Info
 
 * **Event:** [Event Name, e.g., PicoCTF 2024]
