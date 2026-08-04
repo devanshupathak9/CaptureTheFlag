@@ -1,7 +1,7 @@
 # 🎯 Practice Challenges
 
 Standalone challenges I've solved from practice platforms — **not** tied to a
-timed competition. Time-boxed event write-ups live in [`../writeups`](../writeups/README.md).
+timed competition.
 
 Grouped by **platform**, then one folder per challenge named `<category>_<challenge>`
 so the category is visible without opening it.

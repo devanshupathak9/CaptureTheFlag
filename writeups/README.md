@@ -1,7 +1,6 @@
 # 🗂️ Event Write-up Index
 
-Write-ups from **time-boxed CTF competitions**. Standalone practice-platform
-challenges live in [`../practice`](../practice/README.md).
+Write-ups from **time-boxed CTF competitions**.
 
 Each challenge folder is named `<category>_<challenge>`, so the category is
 visible right in the listing without opening the folder.
