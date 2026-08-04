@@ -9,7 +9,7 @@ Category prefixes: `web`, `pwn`, `rev`, `crypto`, `forensics`, `osint`, `misc`.
 
 ---
 
-## Hack The Box — [index](./hack-the-box/README.md)
+## Hack The Box
 
 | Challenge | Category | Write-up |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ Category prefixes: `web`, `pwn`, `rev`, `crypto`, `forensics`, `osint`, `misc`.
 | An Unusual Sighting | forensics | [files](./hack-the-box/forensics_an-unusual-sighting/) |
 | Character | misc | [writeup](./hack-the-box/misc_character/writeup.md) |
 
-## AdWorld (XCTF) — [index](./adworld/README.md)
+## AdWorld (XCTF)
 
 | Challenge | Category | Write-up |
 | --- | --- | --- |

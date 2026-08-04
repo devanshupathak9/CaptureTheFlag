@@ -9,20 +9,20 @@ Category prefixes: `web`, `pwn`, `rev`, `crypto`, `forensics`, `osint`, `misc`.
 
 ---
 
-## EHAX CTF 2025 — [index](./ehax-ctf-2025/README.md)
+## EHAX CTF 2025
 
 | Challenge | Category | Write-up |
 | --- | --- | --- |
 | Borderline Personality | web | [writeup](./ehax-ctf-2025/web_borderline-personality/writeup.md) |
 
-## Infobahn CTF 2025 — [index](./infobahn-ctf-2025/README.md)
+## Infobahn CTF 2025
 
 | Challenge | Category | Write-up |
 | --- | --- | --- |
 | pyjail | misc | [writeup](./infobahn-ctf-2025/misc_pyjail/writeup.md) |
 | SPEECHLESS | misc | [writeup](./infobahn-ctf-2025/misc_speechless/writeup.md) |
 
-## PatriotCTF 2025 — [index](./patriot-ctf-2025/README.md)
+## PatriotCTF 2025
 
 | Challenge | Category | Write-up |
 | --- | --- | --- |

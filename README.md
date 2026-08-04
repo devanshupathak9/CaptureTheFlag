@@ -38,8 +38,8 @@ Standalone challenges from always-on practice platforms.
 
 | Platform | Index |
 | --- | --- |
-| Hack The Box | [practice/hack-the-box](./practice/hack-the-box/README.md) |
-| AdWorld (XCTF) | [practice/adworld](./practice/adworld/README.md) |
+| Hack The Box | [practice/hack-the-box](./practice/hack-the-box/) |
+| AdWorld (XCTF) | [practice/adworld](./practice/adworld/) |
 
 ## 🏁 Event Write-ups — [full index](./writeups/README.md)
 
@@ -47,9 +47,9 @@ Challenges from time-boxed CTF competitions.
 
 | Event | Index |
 | --- | --- |
-| EHAX CTF 2025 | [writeups/ehax-ctf-2025](./writeups/ehax-ctf-2025/README.md) |
-| Infobahn CTF 2025 | [writeups/infobahn-ctf-2025](./writeups/infobahn-ctf-2025/README.md) |
-| PatriotCTF 2025 | [writeups/patriot-ctf-2025](./writeups/patriot-ctf-2025/README.md) |
+| EHAX CTF 2025 | [writeups/ehax-ctf-2025](./writeups/ehax-ctf-2025/) |
+| Infobahn CTF 2025 | [writeups/infobahn-ctf-2025](./writeups/infobahn-ctf-2025/) |
+| PatriotCTF 2025 | [writeups/patriot-ctf-2025](./writeups/patriot-ctf-2025/) |
 
 ---
 
